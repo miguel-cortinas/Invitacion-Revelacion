@@ -10,7 +10,7 @@
     /* Gradiente EQUILIBRADO: Azul a Rosa */
     --gradient: linear-gradient(135deg, #89CFF0 0%, #FF69B4 100%);
     
-    /* Gradientes individuales (por si se necesitan) */
+    /* Gradientes individuales */
     --gradient-blue: linear-gradient(135deg, #89CFF0, #5B9BD5);
     --gradient-pink: linear-gradient(135deg, #FF69B4, #FFB6C1);
     
@@ -105,7 +105,7 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 50px; /* Aumentado para separar botón del sobre */
 }
 
 /* Sobre equilibrado */
@@ -151,7 +151,7 @@ section {
     position: absolute;
     height: 100%; width: 100%; top: 0; left: 0;
     border-top: 100px solid transparent;
-    border-right: 150px solid #ddd;
+    border-right: 150px solid #ddd; /* Color neutro para el cuerpo */
     border-bottom: 100px solid #ddd;
     border-left: 150px solid #ddd;
     z-index: 3;
@@ -183,7 +183,8 @@ section {
 
 .wrapper.open .lid.one { transform: rotateX(90deg); transition-delay: 0s; }
 .wrapper.open .lid.two { transform: rotateX(180deg); transition-delay: 0.4s; }
-.wrapper.open .letter { transform: translateY(-50px); transition-delay: 0.8s; }
+.wrapper.open .letter { transform: translateY(-60px); transition-delay: 0.8s; z-index: 2; } 
+/* z-index ajustado para asegurar visibilidad al salir */
 
 /* Botón */
 .open-letter-btn {
@@ -503,6 +504,33 @@ section {
     .hero-subtitle, .hero-date { font-size: 18px; }
     .hero-question { font-size: 24px; }
     .section-header h2 { font-size: 36px; }
+    
+    /* CORRECCIONES DEL SOBRE */
+    .letter-container {
+        gap: 60px; /* Más espacio entre sobre y botón */
+    }
+    .wrapper {
+        height: 180px; /* Ligeramente más alto */
+        width: 260px;  /* Ligeramente más ancho */
+    }
+    /* Recálculo de bordes para geometría perfecta en móvil (260/2 = 130) */
+    .lid {
+        border-right-width: 130px;
+        border-left-width: 130px;
+    }
+    .envelope {
+        border-right-width: 130px;
+        border-left-width: 130px;
+        /* Ajuste de altura de solapas si es necesario */
+    }
+    .letter {
+        padding: 15px; /* Menos padding interno para que quepa más texto */
+    }
+    .letter h2 {
+        font-size: 20px;
+    }
+
+    /* Ajustes generales móvil */
     .countdown-container { gap: 20px; }
     .countdown-item { min-width: 120px; padding: 20px 30px; }
     .countdown-item span { font-size: 40px; }
@@ -512,6 +540,7 @@ section {
     .color-emoji { font-size: 60px; }
     .wrapper { height: 160px; width: 240px; }
     .letter h2 { font-size: 20px; }
+    .whatsapp-btn-large { padding: 15px 25px; font-size: 16px; }
 }
 @media (max-width: 480px) {
     .hero-title { font-size: 40px; }

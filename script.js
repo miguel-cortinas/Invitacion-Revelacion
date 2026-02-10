@@ -224,14 +224,4 @@ function updateCountdown() {
 // Prevenir scroll mientras está abierta la carta
 document.body.style.overflow = 'hidden';
 
-// Agregar efecto parallax sutil al hero
-window.addEventListener('scroll', function() {
-    const heroSection = document.querySelector('.hero-section');
-    if (heroSection) {
-        const scrolled = window.pageYOffset;
-        const parallax = scrolled * 0.5;
-        heroSection.style.transform = `translateY(${parallax}px)`;
-    }
-});
-
-console.log('🎉 Invitación actualizada: Equilibrio Azul/Rosa');
+console.log('🎉 Invitación actualizada: Fixes Móviles aplicados');
