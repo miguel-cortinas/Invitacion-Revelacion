@@ -49,10 +49,9 @@ function setupLetterOpening() {
     });
 }
 
-// Crear efecto de confeti (Tonos Pastel Suaves)
+// Crear efecto de confeti (Azul y Rosa)
 function createConfetti() {
-    // Colores pastel actualizados: Azul Baby, Rosa Light, etc.
-    const colors = ['#89CFF0', '#FFB6C1', '#B0E0E6', '#FFC0CB', '#E6E6FA'];
+    const colors = ['#89CFF0', '#FF69B4', '#5B9BD5', '#FFB6C1', '#87CEEB'];
     const confettiCount = 100;
     
     for (let i = 0; i < confettiCount; i++) {
@@ -225,4 +224,4 @@ function updateCountdown() {
 // Prevenir scroll mientras está abierta la carta
 document.body.style.overflow = 'hidden';
 
-console.log('🎉 Invitación actualizada: Equilibrio Pastel + Centrado perfecto');
+console.log('🎉 Invitación actualizada: Fixes Móviles aplicados');
