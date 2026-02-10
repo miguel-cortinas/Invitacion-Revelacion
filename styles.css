@@ -105,7 +105,7 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 50px; /* Aumentado para separar botón del sobre */
+    gap: 50px;
 }
 
 /* Sobre equilibrado */
@@ -132,16 +132,16 @@ section {
     transition: transform 0.6s ease;
 }
 
-/* Solapas de colores alternos */
+/* Solapas */
 .lid.one {
-    border-top: 100px solid #FFB6C1; /* Rosa claro */
+    border-top: 100px solid #FFB6C1;
     transform: rotateX(0deg);
     z-index: 3;
     transition-delay: 0.8s;
 }
 
 .lid.two {
-    border-top: 100px solid #89CFF0; /* Azul claro */
+    border-top: 100px solid #89CFF0;
     transform: rotateX(0deg);
     z-index: 2;
     transition-delay: 0.4s;
@@ -151,7 +151,7 @@ section {
     position: absolute;
     height: 100%; width: 100%; top: 0; left: 0;
     border-top: 100px solid transparent;
-    border-right: 150px solid #ddd; /* Color neutro para el cuerpo */
+    border-right: 150px solid #ddd;
     border-bottom: 100px solid #ddd;
     border-left: 150px solid #ddd;
     z-index: 3;
@@ -183,8 +183,7 @@ section {
 
 .wrapper.open .lid.one { transform: rotateX(90deg); transition-delay: 0s; }
 .wrapper.open .lid.two { transform: rotateX(180deg); transition-delay: 0.4s; }
-.wrapper.open .letter { transform: translateY(-60px); transition-delay: 0.8s; z-index: 2; } 
-/* z-index ajustado para asegurar visibilidad al salir */
+.wrapper.open .letter { transform: translateY(-60px); transition-delay: 0.8s; z-index: 2; }
 
 /* Botón */
 .open-letter-btn {
@@ -323,17 +322,23 @@ section {
 @keyframes rotateOrnament { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(360deg) scale(1.2); } }
 
 /* =================================== */
-/* INVITACIÓN */
+/* ESTILOS COMPARTIDOS (Invitación, Ubicación, Contador) */
 /* =================================== */
-.invitation-section { background: white; padding: 80px 0; width: 100%; }
-.invitation-bg {
+.invitation-section, .countdown-section, .location-section, .rsvp-section, .event-details-section, .dresscode-section {
+    background: white; padding: 80px 0; width: 100%;
+}
+
+/* Estilo unificado para los contenedores de fondo */
+.invitation-bg, .countdown-bg {
     background: linear-gradient(135deg, rgba(137, 207, 240, 0.1), rgba(255, 105, 180, 0.1));
     padding: 60px 20px; border-radius: 20px; position: relative; max-width: 1000px; margin: 0 auto;
 }
+
 .section-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(255, 255, 255, 0.7); border-radius: 20px;
 }
+
 .section-header { text-align: center; margin-bottom: 50px; position: relative; z-index: 1; }
 .section-header h2 {
     font-size: 48px; background: var(--gradient);
@@ -341,38 +346,36 @@ section {
     background-clip: text; margin-bottom: 20px;
 }
 .section-divider { width: 100px; height: 3px; background: var(--gradient); margin: 0 auto; }
+
+/* Contenido específico de invitación */
 .invitation-content { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
 .invitation-text { font-size: 20px; line-height: 1.8; text-align: center; color: var(--text-color); margin-bottom: 25px; }
 
 /* =================================== */
-/* CONTADOR */
+/* CONTADOR (Actualizado al estilo claro) */
 /* =================================== */
-.countdown-section {
-    position: relative; background: var(--gradient); background-size: 400% 400%;
-    animation: gradientShift 8s ease infinite; padding: 80px 0; width: 100%;
-}
-.countdown-section .section-header h2 { color: white; -webkit-text-fill-color: white; background: none; }
-.countdown-section .section-divider { background: white; }
 .countdown-container {
     display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 50px;
+    position: relative; z-index: 1; /* Asegura que esté sobre el overlay */
 }
 .countdown-item {
-    background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.3); border-radius: 20px; padding: 30px 40px;
-    text-align: center; min-width: 150px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background: white; /* Fondo blanco limpio */
+    border-radius: 20px; padding: 30px 40px;
+    text-align: center; min-width: 150px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Sombra suave */
     transition: transform 0.3s ease;
 }
 .countdown-item:hover { transform: translateY(-10px); }
 .countdown-item span {
-    display: block; font-size: 60px; font-weight: bold; color: white;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    display: block; font-size: 60px; font-weight: bold;
+    /* Texto con gradiente en lugar de blanco */
+    background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
-.countdown-item p { font-size: 18px; color: white; margin-top: 10px; text-transform: uppercase; letter-spacing: 2px; }
+.countdown-item p { font-size: 18px; color: var(--text-light); margin-top: 10px; text-transform: uppercase; letter-spacing: 2px; }
 
 /* =================================== */
 /* DETALLES */
 /* =================================== */
-.event-details-section { background: white; padding: 80px 0; width: 100%; }
 .event-info-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 40px; margin-top: 50px; width: 100%; justify-items: center;
@@ -398,10 +401,7 @@ section {
 /* =================================== */
 /* UBICACIÓN */
 /* =================================== */
-.location-section {
-    background: linear-gradient(135deg, rgba(137, 207, 240, 0.05), rgba(255, 105, 180, 0.05));
-    padding: 80px 0; width: 100%;
-}
+/* Usamos el estilo compartido definido arriba */
 .location-content { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
 .location-info { text-align: center; margin-bottom: 40px; }
 .location-info h3 {
@@ -424,7 +424,6 @@ section {
 /* =================================== */
 /* VESTIMENTA (CAFÉ/BEIGE) */
 /* =================================== */
-.dresscode-section { background: white; padding: 80px 0; width: 100%; }
 .dresscode-content { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
 .dresscode-intro { text-align: center; font-size: 20px; color: var(--text-color); margin-bottom: 50px; }
 .dresscode-options {
@@ -442,7 +441,6 @@ section {
     transition: all 0.3s ease;
 }
 
-/* Clases específicas solicitadas */
 .coffee-circle { background: var(--gradient-coffee); }
 .beige-circle { background: var(--gradient-beige); border: 2px solid #EEE; }
 
@@ -455,10 +453,6 @@ section {
 /* =================================== */
 /* RSVP */
 /* =================================== */
-.rsvp-section {
-    background: linear-gradient(135deg, rgba(137, 207, 240, 0.05), rgba(255, 105, 180, 0.05));
-    padding: 80px 0; width: 100%;
-}
 .rsvp-content { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
 .rsvp-intro { text-align: center; font-size: 20px; color: var(--text-color); margin-bottom: 50px; }
 .direct-whatsapp { text-align: center; width: 100%; display: flex; justify-content: center; }
@@ -505,30 +499,13 @@ section {
     .hero-question { font-size: 24px; }
     .section-header h2 { font-size: 36px; }
     
-    /* CORRECCIONES DEL SOBRE */
-    .letter-container {
-        gap: 60px; /* Más espacio entre sobre y botón */
-    }
-    .wrapper {
-        height: 180px; /* Ligeramente más alto */
-        width: 260px;  /* Ligeramente más ancho */
-    }
-    /* Recálculo de bordes para geometría perfecta en móvil (260/2 = 130) */
-    .lid {
-        border-right-width: 130px;
-        border-left-width: 130px;
-    }
-    .envelope {
-        border-right-width: 130px;
-        border-left-width: 130px;
-        /* Ajuste de altura de solapas si es necesario */
-    }
-    .letter {
-        padding: 15px; /* Menos padding interno para que quepa más texto */
-    }
-    .letter h2 {
-        font-size: 20px;
-    }
+    /* CORRECCIONES DEL SOBRE MÓVIL */
+    .letter-container { gap: 60px; }
+    .wrapper { height: 180px; width: 260px; }
+    .lid { border-right-width: 130px; border-left-width: 130px; }
+    .envelope { border-right-width: 130px; border-left-width: 130px; }
+    .letter { padding: 15px; }
+    .letter h2 { font-size: 20px; }
 
     /* Ajustes generales móvil */
     .countdown-container { gap: 20px; }
