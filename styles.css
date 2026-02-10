@@ -1,0 +1,525 @@
+/* Variables CSS - EQUILIBRIO AZUL/ROSA para toda la web */
+:root {
+    --primary-color: #89CFF0; /* Azul base */
+    --secondary-color: #FF69B4; /* Rosa base */
+    --text-color: #333;
+    --text-light: #666;
+    --white: #fff;
+    --black: #000;
+    
+    /* Gradiente EQUILIBRADO: Azul a Rosa */
+    --gradient: linear-gradient(135deg, #89CFF0 0%, #FF69B4 100%);
+    
+    /* Gradientes individuales (por si se necesitan) */
+    --gradient-blue: linear-gradient(135deg, #89CFF0, #5B9BD5);
+    --gradient-pink: linear-gradient(135deg, #FF69B4, #FFB6C1);
+    
+    /* EXCLUSIVO PARA VESTIMENTA: Gradientes Café y Beige */
+    --gradient-coffee: linear-gradient(135deg, #8B4513, #A0522D);
+    --gradient-beige: linear-gradient(135deg, #F5F5DC, #E1C699);
+
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --border-radius: 15px;
+}
+
+/* Reset y configuración base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Playfair Display', serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Alineación general: Centrada */
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.section-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* =================================== */
+/* SCROLL ANIMATION */
+/* =================================== */
+.scroll-animate {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: var(--delay, 0s); 
+}
+
+.scroll-animate.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =================================== */
+/* CARTA */
+/* =================================== */
+
+.letter-opening {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: var(--gradient);
+    background-size: 400% 400%;
+    animation: gradientShift 6s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.letter-opening.opening {
+    animation: fadeOut 2s ease forwards;
+}
+
+.letter-container {
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+/* Sobre equilibrado */
+.wrapper {
+    height: 200px;
+    width: 300px;
+    background: linear-gradient(135deg, #89CFF0, #FF69B4);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    z-index: 0;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.lid {
+    position: absolute;
+    height: 100%; width: 100%; top: 0; left: 0;
+    border-right: 150px solid transparent;
+    border-bottom: 100px solid transparent;
+    border-left: 150px solid transparent;
+    transform-origin: top;
+    transition: transform 0.6s ease;
+}
+
+/* Solapas de colores alternos */
+.lid.one {
+    border-top: 100px solid #FFB6C1; /* Rosa claro */
+    transform: rotateX(0deg);
+    z-index: 3;
+    transition-delay: 0.8s;
+}
+
+.lid.two {
+    border-top: 100px solid #89CFF0; /* Azul claro */
+    transform: rotateX(0deg);
+    z-index: 2;
+    transition-delay: 0.4s;
+}
+
+.envelope {
+    position: absolute;
+    height: 100%; width: 100%; top: 0; left: 0;
+    border-top: 100px solid transparent;
+    border-right: 150px solid #ddd;
+    border-bottom: 100px solid #ddd;
+    border-left: 150px solid #ddd;
+    z-index: 3;
+}
+
+.letter {
+    position: absolute; top: 0; width: 80%; height: 80%;
+    background-color: white; border-radius: 10px;
+    z-index: 1; padding: 20px;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    transition: 0.6s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.letter p { font-size: 14px; color: var(--text-light); margin: 5px 0; }
+.letter h2 {
+    font-family: 'Parisienne', cursive; font-size: 24px;
+    background: var(--gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin: 10px 0;
+}
+.letter .signature {
+    font-family: 'Dancing Script', cursive; font-size: 18px; font-weight: bold;
+    background: var(--gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.wrapper.open .lid.one { transform: rotateX(90deg); transition-delay: 0s; }
+.wrapper.open .lid.two { transform: rotateX(180deg); transition-delay: 0.4s; }
+.wrapper.open .letter { transform: translateY(-50px); transition-delay: 0.8s; }
+
+/* Botón */
+.open-letter-btn {
+    position: relative; padding: 18px 50px;
+    font-size: 18px; font-family: 'Playfair Display', serif;
+    background: white; color: #333;
+    border: none; border-radius: 50px; cursor: pointer;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease; overflow: hidden; z-index: 1;
+    font-weight: bold;
+}
+.open-letter-btn:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); }
+.open-letter-btn span { position: relative; z-index: 2; }
+.btn-decoration {
+    position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: var(--gradient); transition: left 0.5s ease; z-index: 1;
+}
+.open-letter-btn:hover .btn-decoration { left: 0; }
+.open-letter-btn:hover span { color: white; }
+
+/* Brillos */
+.sparkles { position: absolute; width: 100%; height: 100%; pointer-events: none; }
+.sparkle {
+    position: absolute; width: 10px; height: 10px;
+    background: white; border-radius: 50%; opacity: 0;
+    animation: sparkle 3s infinite;
+}
+.sparkle:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+.sparkle:nth-child(2) { top: 40%; left: 80%; animation-delay: 0.5s; }
+.sparkle:nth-child(3) { top: 60%; left: 30%; animation-delay: 1s; }
+.sparkle:nth-child(4) { top: 80%; left: 70%; animation-delay: 1.5s; }
+.sparkle:nth-child(5) { top: 50%; left: 50%; animation-delay: 2s; }
+@keyframes sparkle { 0%, 100% { opacity: 0; transform: scale(0); } 50% { opacity: 1; transform: scale(1); } }
+@keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+
+/* =================================== */
+/* NAVEGACIÓN */
+/* =================================== */
+.navbar {
+    position: fixed; top: 0; width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000; transition: all 0.3s ease; display: none;
+}
+.navbar.show { display: block; }
+.nav-container {
+    max-width: 1200px; margin: 0 auto; padding: 15px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.nav-brand {
+    font-family: 'Parisienne', cursive; font-size: 28px;
+    background: var(--gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.nav-menu { display: flex; list-style: none; gap: 30px; }
+.nav-menu li a {
+    text-decoration: none; color: var(--text-color); font-weight: 500;
+    transition: all 0.3s ease; position: relative;
+}
+.nav-menu li a:hover { color: var(--secondary-color); }
+.nav-menu li a::after {
+    content: ''; position: absolute; bottom: -5px; left: 0;
+    width: 0; height: 2px; background: var(--gradient); transition: width 0.3s ease;
+}
+.nav-menu li a:hover::after { width: 100%; }
+.hamburger { display: none; flex-direction: column; cursor: pointer; gap: 4px; }
+.hamburger span {
+    width: 25px; height: 3px; background: var(--secondary-color);
+    border-radius: 3px; transition: all 0.3s ease;
+}
+
+/* =================================== */
+/* CONTENIDO */
+/* =================================== */
+.main-content { display: none; width: 100%; }
+.main-content.show { display: block; animation: fadeIn 1s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* =================================== */
+/* HERO */
+/* =================================== */
+.hero-section {
+    position: relative; height: 100vh; width: 100%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--gradient); background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite; overflow: hidden;
+}
+.hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.1); }
+.hero-content { position: relative; z-index: 1; text-align: center; color: white; padding: 40px; }
+.hero-subtitle {
+    font-size: 24px; font-weight: 300; margin-bottom: 20px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); animation: fadeInDown 1s ease;
+}
+.hero-title {
+    font-family: 'Parisienne', cursive; font-size: 80px; font-weight: 400; margin-bottom: 20px;
+    text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3); animation: fadeInUp 1s ease 0.3s backwards;
+}
+.hero-date {
+    font-size: 28px; font-weight: 300; letter-spacing: 5px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); animation: fadeInUp 1s ease 0.6s backwards;
+}
+.hero-question {
+    font-family: 'Dancing Script', cursive; font-size: 36px; margin-top: 20px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); animation: fadeInUp 1s ease 0.9s backwards;
+}
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+.scroll-indicator {
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); animation: bounce 2s infinite;
+}
+.scroll-arrow {
+    width: 30px; height: 30px; border-right: 3px solid white;
+    border-bottom: 3px solid white; transform: rotate(45deg);
+}
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+    40% { transform: translateX(-50%) translateY(-20px); }
+    60% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* =================================== */
+/* SEPARADORES */
+/* =================================== */
+.section-separator {
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px 0; background: white; width: 100%;
+}
+.separator-line {
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, transparent, var(--primary-color), var(--secondary-color), transparent);
+    max-width: 300px;
+}
+.separator-ornament { margin: 0 30px; font-size: 40px; animation: rotateOrnament 3s infinite; }
+@keyframes rotateOrnament { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(360deg) scale(1.2); } }
+
+/* =================================== */
+/* INVITACIÓN */
+/* =================================== */
+.invitation-section { background: white; padding: 80px 0; width: 100%; }
+.invitation-bg {
+    background: linear-gradient(135deg, rgba(137, 207, 240, 0.1), rgba(255, 105, 180, 0.1));
+    padding: 60px 20px; border-radius: 20px; position: relative; max-width: 1000px; margin: 0 auto;
+}
+.section-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.7); border-radius: 20px;
+}
+.section-header { text-align: center; margin-bottom: 50px; position: relative; z-index: 1; }
+.section-header h2 {
+    font-size: 48px; background: var(--gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 20px;
+}
+.section-divider { width: 100px; height: 3px; background: var(--gradient); margin: 0 auto; }
+.invitation-content { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
+.invitation-text { font-size: 20px; line-height: 1.8; text-align: center; color: var(--text-color); margin-bottom: 25px; }
+
+/* =================================== */
+/* CONTADOR */
+/* =================================== */
+.countdown-section {
+    position: relative; background: var(--gradient); background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite; padding: 80px 0; width: 100%;
+}
+.countdown-section .section-header h2 { color: white; -webkit-text-fill-color: white; background: none; }
+.countdown-section .section-divider { background: white; }
+.countdown-container {
+    display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 50px;
+}
+.countdown-item {
+    background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3); border-radius: 20px; padding: 30px 40px;
+    text-align: center; min-width: 150px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+.countdown-item:hover { transform: translateY(-10px); }
+.countdown-item span {
+    display: block; font-size: 60px; font-weight: bold; color: white;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+.countdown-item p { font-size: 18px; color: white; margin-top: 10px; text-transform: uppercase; letter-spacing: 2px; }
+
+/* =================================== */
+/* DETALLES */
+/* =================================== */
+.event-details-section { background: white; padding: 80px 0; width: 100%; }
+.event-info-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px; margin-top: 50px; width: 100%; justify-items: center;
+}
+.event-card {
+    background: linear-gradient(135deg, rgba(137, 207, 240, 0.1), rgba(255, 105, 180, 0.1));
+    border-radius: 20px; padding: 40px 30px; text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%; max-width: 350px;
+}
+.event-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1); }
+.event-icon { font-size: 60px; margin-bottom: 20px; }
+.event-card h3 { font-size: 24px; color: var(--text-color); margin-bottom: 15px; }
+.event-detail { font-size: 16px; color: var(--text-light); margin-bottom: 5px; }
+.event-detail-main {
+    font-size: 22px; font-weight: bold; background: var(--gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.event-detail-sub { font-size: 14px; color: var(--secondary-color); }
+
+/* =================================== */
+/* UBICACIÓN */
+/* =================================== */
+.location-section {
+    background: linear-gradient(135deg, rgba(137, 207, 240, 0.05), rgba(255, 105, 180, 0.05));
+    padding: 80px 0; width: 100%;
+}
+.location-content { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+.location-info { text-align: center; margin-bottom: 40px; }
+.location-info h3 {
+    font-size: 32px; background: var(--gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 10px;
+}
+.location-info p { font-size: 18px; color: var(--text-light); }
+.map-container {
+    border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px; width: 100%;
+}
+.map-button {
+    display: inline-block; padding: 15px 40px; background: var(--gradient);
+    color: white; text-decoration: none; border-radius: 50px; font-weight: bold;
+    font-size: 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;
+}
+.map-button:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); }
+
+/* =================================== */
+/* VESTIMENTA (CAFÉ/BEIGE) */
+/* =================================== */
+.dresscode-section { background: white; padding: 80px 0; width: 100%; }
+.dresscode-content { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+.dresscode-intro { text-align: center; font-size: 20px; color: var(--text-color); margin-bottom: 50px; }
+.dresscode-options {
+    display: flex; justify-content: center; align-items: center;
+    gap: 60px; flex-wrap: wrap; margin-bottom: 40px;
+}
+.dress-option-card { text-align: center; transition: transform 0.3s ease; }
+.dress-option-card:hover { transform: scale(1.1); }
+
+/* Círculos Café y Beige - EXCLUSIVOS DE ESTA SECCIÓN */
+.color-circle {
+    width: 180px; height: 180px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+/* Clases específicas solicitadas */
+.coffee-circle { background: var(--gradient-coffee); }
+.beige-circle { background: var(--gradient-beige); border: 2px solid #EEE; }
+
+.color-circle:hover { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25); transform: translateY(-10px); }
+.color-emoji { font-size: 80px; }
+.dress-option-card h3 { font-size: 28px; color: var(--text-color); margin-bottom: 10px; }
+.dress-separator { font-size: 40px; font-weight: 300; color: #ccc; }
+.dresscode-note { text-align: center; font-style: italic; font-size: 18px; color: var(--text-light); }
+
+/* =================================== */
+/* RSVP */
+/* =================================== */
+.rsvp-section {
+    background: linear-gradient(135deg, rgba(137, 207, 240, 0.05), rgba(255, 105, 180, 0.05));
+    padding: 80px 0; width: 100%;
+}
+.rsvp-content { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+.rsvp-intro { text-align: center; font-size: 20px; color: var(--text-color); margin-bottom: 50px; }
+.direct-whatsapp { text-align: center; width: 100%; display: flex; justify-content: center; }
+.whatsapp-btn-large {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 15px; padding: 20px 50px; background: #25D366; color: white;
+    text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 20px;
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3); transition: all 0.3s ease;
+    width: auto; max-width: 90%;
+}
+.whatsapp-btn-large:hover {
+    transform: translateY(-5px); box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4); background: #20BA5A;
+}
+.whatsapp-icon { font-size: 28px; }
+
+/* =================================== */
+/* FOOTER */
+/* =================================== */
+.footer {
+    background: var(--gradient); background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite; padding: 60px 20px;
+    text-align: center; color: white; width: 100%;
+}
+.footer-signature {
+    font-family: 'Dancing Script', cursive; font-size: 28px; margin-bottom: 15px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+.footer-hearts { font-size: 20px; text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); }
+
+/* =================================== */
+/* RESPONSIVE */
+/* =================================== */
+@media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .nav-menu {
+        position: fixed; left: -100%; top: 70px; flex-direction: column;
+        background: white; width: 100%; text-align: center; transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05); padding: 20px 0;
+    }
+    .nav-menu.active { left: 0; }
+    .nav-menu li { margin: 10px 0; }
+    .hero-title { font-size: 50px; }
+    .hero-subtitle, .hero-date { font-size: 18px; }
+    .hero-question { font-size: 24px; }
+    .section-header h2 { font-size: 36px; }
+    .countdown-container { gap: 20px; }
+    .countdown-item { min-width: 120px; padding: 20px 30px; }
+    .countdown-item span { font-size: 40px; }
+    .event-info-grid { grid-template-columns: 1fr; gap: 30px; }
+    .dresscode-options { gap: 40px; }
+    .color-circle { width: 140px; height: 140px; }
+    .color-emoji { font-size: 60px; }
+    .wrapper { height: 160px; width: 240px; }
+    .letter h2 { font-size: 20px; }
+}
+@media (max-width: 480px) {
+    .hero-title { font-size: 40px; }
+    .section-header h2 { font-size: 28px; }
+    .invitation-text, .dresscode-intro, .rsvp-intro { font-size: 16px; }
+    .countdown-item { min-width: 100px; padding: 15px 20px; }
+    .countdown-item span { font-size: 32px; }
+    .color-circle { width: 120px; height: 120px; }
+    .color-emoji { font-size: 50px; }
+    .whatsapp-btn-large { padding: 15px 25px; font-size: 16px; }
+}
