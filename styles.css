@@ -9,7 +9,7 @@
     /* Gradiente EQUILIBRADO: Azul a Rosa */
     --gradient: linear-gradient(135deg, #5B9BD5 0%, #FF69B4 100%);
     
-    /* Gradientes individuales pero suavizados */
+    /* Gradientes individuales */
     --gradient-blue: linear-gradient(135deg, #89CFF0, #5B9BD5);
     --gradient-pink: linear-gradient(135deg, #FF69B4, #FFB6C1);
     
@@ -110,12 +110,11 @@ section {
     justify-content: center; 
 }
 
-/* Sobre equilibrado */
+/* SOBRE - Estilo Neutro */
 .wrapper {
     height: 200px;
     width: 300px;
-    /* Fondo neutro/gris claro para que destaque el interior */
-    background: #f0f0f0; 
+    background: #f4f4f4; /* Fondo neutro gris muy claro */
     position: relative;
     display: flex;
     justify-content: center;
@@ -136,29 +135,35 @@ section {
     transition: transform 0.6s ease;
 }
 
-/* Solapas Balanceadas */
+/* Solapas NEUTRAS (Corrección de color) */
 .lid.one {
-    /* Tapa superior: Color neutro o gradiente suave */
-    border-top: 100px solid #e0e0e0;
+    /* Tapa exterior: Gris/Blanco (Antes era Rosa) */
+    border-top: 100px solid #e0e0e0; 
     transform: rotateX(0deg);
     z-index: 10; 
+    /* IMPORTANTE: Transición del z-index con delay para corregir la apertura */
+    transition: transform 0.6s ease, z-index 0.2s linear; 
+    transition-delay: 0s, 0.3s; /* Delay en z-index para que no se oculte antes de tiempo */
 }
 
 .lid.two {
-    /* Tapa interior decorativa (solo se ve al abrir) */
-    border-top: 100px solid var(--primary-color); /* Interior azul */
+    /* Sombra interior o segunda capa: Un poco más oscura para profundidad */
+    border-top: 100px solid #d0d0d0; 
     transform: rotateX(0deg);
     z-index: 9;
+    transition: transform 0.6s ease, z-index 0.2s linear;
+    transition-delay: 0s, 0.3s;
 }
 
 .envelope {
     position: absolute;
     height: 100%; width: 100%; top: 0; left: 0;
     border-top: 100px solid transparent;
+    /* Cuerpo del sobre: Gris claro neutro */
     border-right: 150px solid #ececec;
     border-bottom: 100px solid #ececec;
     border-left: 150px solid #ececec;
-    z-index: 8; /* Por debajo de la tapa cerrada, por encima de la carta cerrada */
+    z-index: 8; 
 }
 
 .letter {
@@ -184,15 +189,12 @@ section {
 /* ESTADO ABIERTO (CORREGIDO) */
 .wrapper.open .lid.one { 
     transform: rotateX(180deg); 
-    z-index: 1; /* Pasa al fondo */
-    transition-delay: 0s;
+    z-index: 1; /* Pasa al fondo solo DESPUÉS de rotar (gracias al delay de arriba) */
 }
 
 .wrapper.open .lid.two { 
     transform: rotateX(180deg); 
     z-index: 1; 
-    transition-delay: 0s;
-    border-top-color: var(--secondary-color); /* Efecto sorpresa rosa/azul */
 }
 
 .wrapper.open .letter { 
