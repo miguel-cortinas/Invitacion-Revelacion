@@ -1,14 +1,14 @@
 /* Variables CSS - EQUILIBRIO AZUL/ROSA para toda la web */
 :root {
-    --primary-color: #89CFF0; /* Azul base */
-    --secondary-color: #FFB6C1; /* Rosa base */
+    --primary-color: #5B9BD5; /* Azul base */
+    --secondary-color: #FF69B4; /* Rosa base */
     --text-color: #333;
     --text-light: #666;
     --white: #fff;
     --black: #000;
     
     /* Gradiente EQUILIBRADO: Azul a Rosa */
-    --gradient: linear-gradient(135deg, #89CFF0 0%, #FFB6C1 100%);
+    --gradient: linear-gradient(135deg, #5B9BD5 0%, #FF69B4 100%);
     
     /* Gradientes individuales */
     --gradient-blue: linear-gradient(135deg, #89CFF0, #5B9BD5);
