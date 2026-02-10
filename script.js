@@ -1,6 +1,7 @@
 // Variables globales
 let countdownInterval = null;
-const eventDate = new Date("March 28, 2026 15:00:00").getTime();
+// FECHA CORREGIDA: 28 de Febrero de 2026, 3:00 PM
+const eventDate = new Date("February 28, 2026 15:00:00").getTime();
 
 // Inicialización cuando la página carga
 window.addEventListener('load', function() {
@@ -12,10 +13,11 @@ function initializeApp() {
     setupNavigation();
     setupScrollAnimations();
     setupCountdown();
+    setupGallery(); // Nueva función de galería
 }
 
 // =================================== 
-// APERTURA DE CARTA
+// APERTURA DE CARTA (CORREGIDO)
 // ===================================
 
 function setupLetterOpening() {
@@ -27,12 +29,11 @@ function setupLetterOpening() {
 
     if (!openBtn || !envelopeWrapper) return;
 
-    // Al hacer click en el botón
     openBtn.addEventListener('click', function() {
         // Abrir el sobre
         envelopeWrapper.classList.add('open');
         
-        // Después de la animación del sobre, mostrar el contenido
+        // Esperamos a que salga la carta para desvanecer el overlay
         setTimeout(() => {
             letterOpening.classList.add('opening');
             
@@ -49,10 +50,14 @@ function setupLetterOpening() {
     });
 }
 
-// Crear efecto de confeti (Azul y Rosa)
+// Crear efecto de confeti (BALANCEADO: Azul y Rosa por igual)
 function createConfetti() {
-    const colors = ['#89CFF0', '#FF69B4', '#5B9BD5', '#FFB6C1', '#87CEEB'];
-    const confettiCount = 100;
+    // 3 tonos de azul, 3 tonos de rosa para balance perfecto
+    const colors = [
+        '#89CFF0', '#5B9BD5', '#87CEEB', // Azules
+        '#FF69B4', '#FFB6C1', '#FF1493'  // Rosas
+    ];
+    const confettiCount = 120; // Un poco más de confeti
     
     for (let i = 0; i < confettiCount; i++) {
         setTimeout(() => {
@@ -88,7 +93,7 @@ function createConfetti() {
             });
             
             setTimeout(() => confetti.remove(), duration);
-        }, i * 30);
+        }, i * 20);
     }
 }
 
@@ -103,13 +108,11 @@ function setupNavigation() {
 
     if (!hamburger || !navMenu) return;
 
-    // Toggle del menú móvil
     hamburger.addEventListener('click', () => {
         navMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
     });
 
-    // Cerrar menú al hacer click en un enlace
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             navMenu.classList.remove('active');
@@ -117,7 +120,6 @@ function setupNavigation() {
         });
     });
 
-    // Smooth scroll para los enlaces
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -134,7 +136,6 @@ function setupNavigation() {
         });
     });
 
-    // Cambiar apariencia del navbar al hacer scroll
     let lastScroll = 0;
     window.addEventListener('scroll', () => {
         const navbar = document.getElementById('navbar');
@@ -150,6 +151,56 @@ function setupNavigation() {
 
         lastScroll = currentScroll;
     });
+}
+
+// =================================== 
+// GALERÍA / CARRUSEL
+// ===================================
+
+function setupGallery() {
+    const track = document.getElementById('carousel-track');
+    const indicatorsContainer = document.getElementById('carousel-indicators');
+    if (!track) return;
+
+    const slides = Array.from(track.children);
+    let currentIndex = 0;
+
+    // Crear indicadores
+    slides.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        
+        indicator.addEventListener('click', () => {
+            goToSlide(index);
+            resetAutoPlay();
+        });
+        
+        indicatorsContainer.appendChild(indicator);
+    });
+
+    const indicators = Array.from(indicatorsContainer.children);
+
+    function goToSlide(index) {
+        currentIndex = index;
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        indicators.forEach(ind => ind.classList.remove('active'));
+        indicators[currentIndex].classList.add('active');
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % slides.length;
+        goToSlide(currentIndex);
+    }
+
+    // Auto Play
+    let autoPlayInterval = setInterval(nextSlide, 4000);
+
+    function resetAutoPlay() {
+        clearInterval(autoPlayInterval);
+        autoPlayInterval = setInterval(nextSlide, 4000);
+    }
 }
 
 // =================================== 
@@ -221,7 +272,6 @@ function updateCountdown() {
 // UTILIDADES
 // ===================================
 
-// Prevenir scroll mientras está abierta la carta
 document.body.style.overflow = 'hidden';
 
-console.log('🎉 Invitación actualizada: Fixes Móviles aplicados');
+console.log('🎉 Invitación actualizada: Balance de color y Galería añadidos');

@@ -5,12 +5,11 @@
     --text-color: #333;
     --text-light: #666;
     --white: #fff;
-    --black: #000;
     
     /* Gradiente EQUILIBRADO: Azul a Rosa */
     --gradient: linear-gradient(135deg, #5B9BD5 0%, #FF69B4 100%);
     
-    /* Gradientes individuales */
+    /* Gradientes individuales pero suavizados */
     --gradient-blue: linear-gradient(135deg, #89CFF0, #5B9BD5);
     --gradient-pink: linear-gradient(135deg, #FF69B4, #FFB6C1);
     
@@ -73,7 +72,7 @@ section {
 }
 
 /* =================================== */
-/* CARTA */
+/* CARTA (CORREGIDO) */
 /* =================================== */
 
 .letter-opening {
@@ -86,7 +85,7 @@ section {
     justify-content: center;
     align-items: center;
     z-index: 2000;
-    transition: opacity 1.5s ease, transform 1.5s ease;
+    transition: opacity 1.5s ease;
 }
 
 @keyframes gradientShift {
@@ -97,6 +96,7 @@ section {
 
 .letter-opening.opening {
     animation: fadeOut 2s ease forwards;
+    pointer-events: none; /* Evita clicks fantasma */
 }
 
 .letter-container {
@@ -107,7 +107,6 @@ section {
     align-items: center;
     gap: 50px;
     width: 100%;
-    /* Aseguramos que el contenedor flex centre perfectamente */
     justify-content: center; 
 }
 
@@ -115,7 +114,8 @@ section {
 .wrapper {
     height: 200px;
     width: 300px;
-    background: linear-gradient(135deg, #89CFF0, #FFB6C1);
+    /* Fondo neutro/gris claro para que destaque el interior */
+    background: #f0f0f0; 
     position: relative;
     display: flex;
     justify-content: center;
@@ -123,7 +123,7 @@ section {
     cursor: pointer;
     border-radius: 5px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-    margin: 0 auto; /* Centrado estricto */
+    margin: 0 auto; 
 }
 
 .lid {
@@ -136,69 +136,70 @@ section {
     transition: transform 0.6s ease;
 }
 
-/* Solapas */
+/* Solapas Balanceadas */
 .lid.one {
-    border-top: 100px solid #FFB6C1;
+    /* Tapa superior: Color neutro o gradiente suave */
+    border-top: 100px solid #e0e0e0;
     transform: rotateX(0deg);
-    z-index: 4; /* Mayor z-index inicial para tapar bien */
-    transition-delay: 0s; /* Comienza inmediatamente */
+    z-index: 10; 
 }
 
 .lid.two {
-    border-top: 100px solid #89CFF0;
+    /* Tapa interior decorativa (solo se ve al abrir) */
+    border-top: 100px solid var(--primary-color); /* Interior azul */
     transform: rotateX(0deg);
-    z-index: 3;
-    transition-delay: 0s;
+    z-index: 9;
 }
 
 .envelope {
     position: absolute;
     height: 100%; width: 100%; top: 0; left: 0;
     border-top: 100px solid transparent;
-    border-right: 150px solid #ddd;
-    border-bottom: 100px solid #ddd;
-    border-left: 150px solid #ddd;
-    z-index: 3;
+    border-right: 150px solid #ececec;
+    border-bottom: 100px solid #ececec;
+    border-left: 150px solid #ececec;
+    z-index: 8; /* Por debajo de la tapa cerrada, por encima de la carta cerrada */
 }
 
 .letter {
-    position: absolute; top: 0; width: 80%; height: 80%;
+    position: absolute; top: 0; width: 85%; height: 85%;
     background-color: white; border-radius: 10px;
-    z-index: 1; padding: 20px;
+    z-index: 5; /* Escondido dentro */
+    padding: 20px;
     display: flex; flex-direction: column;
     justify-content: center; align-items: center;
-    transition: 0.8s ease; /* Transición más suave */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .letter h2 {
-    font-family: 'Parisienne', cursive; font-size: 24px;
+    font-family: 'Parisienne', cursive; font-size: 28px;
     background: var(--gradient);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text; margin: 0;
     text-align: center;
 }
+.letter p { font-size: 14px; color: #666; margin-top: 5px; }
 
-/* ESTADO ABIERTO */
-
-/* La tapa gira 180 grados */
+/* ESTADO ABIERTO (CORREGIDO) */
 .wrapper.open .lid.one { 
     transform: rotateX(180deg); 
-    transition-delay: 0s; 
-    z-index: 0; /* Pasa al fondo visualmente */
+    z-index: 1; /* Pasa al fondo */
+    transition-delay: 0s;
 }
 
 .wrapper.open .lid.two { 
     transform: rotateX(180deg); 
-    transition-delay: 0s; 
-    z-index: 0; 
+    z-index: 1; 
+    transition-delay: 0s;
+    border-top-color: var(--secondary-color); /* Efecto sorpresa rosa/azul */
 }
 
-/* La carta espera a que la tapa se abra y luego sube */
 .wrapper.open .letter { 
-    transform: translateY(-60px); 
-    transition-delay: 0.5s; /* Espera a que la tapa esté casi abierta */
-    z-index: 5; /* Sube por encima de todo AL FINAL */
+    transform: translateY(-80px); 
+    transition-delay: 0.4s; /* Sale DESPUÉS de que abre la tapa */
+    z-index: 15; /* Sube por encima de todo */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 /* Botón */
@@ -227,6 +228,7 @@ section {
     background: white; border-radius: 50%; opacity: 0;
     animation: sparkle 3s infinite;
 }
+/* Posiciones aleatorias */
 .sparkle:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
 .sparkle:nth-child(2) { top: 40%; left: 80%; animation-delay: 0.5s; }
 .sparkle:nth-child(3) { top: 60%; left: 30%; animation-delay: 1s; }
@@ -268,11 +270,10 @@ section {
 }
 .nav-menu li a:hover::after { width: 100%; }
 
-/* MENÚ HAMBURGUESA - ACTUALIZADO A GRADIENTE */
 .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 4px; }
 .hamburger span {
     width: 25px; height: 3px; 
-    background: var(--gradient); /* AHORA USA EL MISMO GRADIENTE QUE EL TEXTO */
+    background: var(--gradient); 
     border-radius: 3px; transition: all 0.3s ease;
 }
 
@@ -341,13 +342,12 @@ section {
 @keyframes rotateOrnament { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(360deg) scale(1.2); } }
 
 /* =================================== */
-/* ESTILOS COMPARTIDOS (Invitación, Ubicación, Contador) */
+/* ESTILOS DE SECCIONES */
 /* =================================== */
-.invitation-section, .countdown-section, .location-section, .rsvp-section, .event-details-section, .dresscode-section {
+.invitation-section, .countdown-section, .location-section, .rsvp-section, .event-details-section, .dresscode-section, .gallery-section {
     background: white; padding: 80px 0; width: 100%;
 }
 
-/* Estilo unificado para los contenedores de fondo */
 .invitation-bg, .countdown-bg {
     background: linear-gradient(135deg, rgba(137, 207, 240, 0.1), rgba(255, 105, 180, 0.1));
     padding: 60px 20px; border-radius: 20px; position: relative; max-width: 1000px; margin: 0 auto;
@@ -366,28 +366,26 @@ section {
 }
 .section-divider { width: 100px; height: 3px; background: var(--gradient); margin: 0 auto; }
 
-/* Contenido específico de invitación */
 .invitation-content { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
 .invitation-text { font-size: 20px; line-height: 1.8; text-align: center; color: var(--text-color); margin-bottom: 25px; }
 
 /* =================================== */
-/* CONTADOR (Actualizado al estilo claro) */
+/* CONTADOR */
 /* =================================== */
 .countdown-container {
     display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 50px;
-    position: relative; z-index: 1; /* Asegura que esté sobre el overlay */
+    position: relative; z-index: 1; 
 }
 .countdown-item {
-    background: white; /* Fondo blanco limpio */
+    background: white; 
     border-radius: 20px; padding: 30px 40px;
     text-align: center; min-width: 150px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Sombra suave */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); 
     transition: transform 0.3s ease;
 }
 .countdown-item:hover { transform: translateY(-10px); }
 .countdown-item span {
     display: block; font-size: 60px; font-weight: bold;
-    /* Texto con gradiente en lugar de blanco */
     background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .countdown-item p { font-size: 18px; color: var(--text-light); margin-top: 10px; text-transform: uppercase; letter-spacing: 2px; }
@@ -418,6 +416,45 @@ section {
 .event-detail-sub { font-size: 14px; color: var(--secondary-color); }
 
 /* =================================== */
+/* NUEVA SECCIÓN: GALERÍA */
+/* =================================== */
+.carousel-container {
+    max-width: 800px; margin: 0 auto; overflow: hidden; position: relative;
+    padding: 20px 0;
+}
+.carousel-track {
+    display: flex; transition: transform 0.5s ease-in-out;
+}
+.carousel-slide {
+    min-width: 100%; box-sizing: border-box; padding: 0 20px;
+    display: flex; justify-content: center;
+}
+/* Marcos de fotos */
+.photo-frame {
+    background: white; padding: 15px 15px 50px 15px; /* Estilo Polaroid */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transform: rotate(-2deg); transition: transform 0.3s ease;
+}
+.photo-frame:hover { transform: rotate(0deg) scale(1.02); }
+.photo-frame.pink-frame { border-top: 5px solid var(--secondary-color); transform: rotate(2deg); }
+.photo-frame.blue-frame { border-top: 5px solid var(--primary-color); }
+.photo-placeholder {
+    width: 300px; height: 300px; background: #eee;
+    display: flex; align-items: center; justify-content: center;
+    color: #999; font-weight: bold;
+}
+.carousel-indicators {
+    display: flex; justify-content: center; margin-top: 20px; gap: 10px;
+}
+.indicator {
+    width: 12px; height: 12px; border-radius: 50%; background: #ddd; cursor: pointer; transition: background 0.3s;
+}
+.indicator.active { background: var(--primary-color); }
+.indicator:nth-child(even).active { background: var(--secondary-color); }
+
+.gallery-note { text-align: center; margin-top: 20px; font-style: italic; color: var(--text-light); }
+
+/* =================================== */
 /* UBICACIÓN */
 /* =================================== */
 .location-content { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
@@ -440,7 +477,7 @@ section {
 .map-button:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); }
 
 /* =================================== */
-/* VESTIMENTA (CAFÉ/BEIGE) */
+/* VESTIMENTA */
 /* =================================== */
 .dresscode-content { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
 .dresscode-intro { text-align: center; font-size: 20px; color: var(--text-color); margin-bottom: 50px; }
@@ -451,7 +488,6 @@ section {
 .dress-option-card { text-align: center; transition: transform 0.3s ease; }
 .dress-option-card:hover { transform: scale(1.1); }
 
-/* Círculos Café y Beige - EXCLUSIVOS DE ESTA SECCIÓN */
 .color-circle {
     width: 180px; height: 180px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
@@ -517,25 +553,18 @@ section {
     .hero-question { font-size: 24px; }
     .section-header h2 { font-size: 36px; }
     
-    /* CORRECCIONES DEL SOBRE MÓVIL (Centrado Matemático) */
+    /* CORRECCIONES DEL SOBRE MÓVIL */
     .letter-container { gap: 60px; width: 100%; }
     .wrapper { 
-        height: 180px; 
-        /* Ancho total del wrapper = 260px (coincide con los bordes de 130+130) */
-        width: 260px; 
-        /* Centrado estricto */
-        margin: 0 auto;
+        height: 180px; width: 260px; margin: 0 auto;
     }
-    /* Bordes de la tapa y sobre ajustados a la mitad exacta del ancho (260/2 = 130) */
     .lid { border-right-width: 130px; border-left-width: 130px; }
     .envelope { border-right-width: 130px; border-left-width: 130px; }
     .letter { padding: 15px; }
     .letter h2 { font-size: 20px; }
     
-    /* La carta sube y queda por encima (z-index 5 definido arriba en .open) */
     .wrapper.open .letter { transform: translateY(-110px); }
 
-    /* Ajustes generales móvil */
     .countdown-container { gap: 20px; }
     .countdown-item { min-width: 120px; padding: 20px 30px; }
     .countdown-item span { font-size: 40px; }
