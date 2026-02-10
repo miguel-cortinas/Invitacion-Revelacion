@@ -78,7 +78,7 @@ section {
 
 .letter-opening {
     position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
+    top: 0; left: 0; width: 100%; height: 100vh;
     background: var(--gradient);
     background-size: 400% 400%;
     animation: gradientShift 6s ease infinite;
@@ -106,6 +106,7 @@ section {
     flex-direction: column;
     align-items: center;
     gap: 50px;
+    width: 100%;
 }
 
 /* Sobre equilibrado */
@@ -120,6 +121,7 @@ section {
     cursor: pointer;
     border-radius: 5px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    margin: 0 auto; /* Asegurar centrado */
 }
 
 .lid {
@@ -167,18 +169,12 @@ section {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.letter p { font-size: 14px; color: var(--text-light); margin: 5px 0; }
 .letter h2 {
     font-family: 'Parisienne', cursive; font-size: 24px;
     background: var(--gradient);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text; margin: 10px 0;
-}
-.letter .signature {
-    font-family: 'Dancing Script', cursive; font-size: 18px; font-weight: bold;
-    background: var(--gradient);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
+    background-clip: text; margin: 0;
+    text-align: center;
 }
 
 .wrapper.open .lid.one { transform: rotateX(90deg); transition-delay: 0s; }
@@ -401,7 +397,6 @@ section {
 /* =================================== */
 /* UBICACIÓN */
 /* =================================== */
-/* Usamos el estilo compartido definido arriba */
 .location-content { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
 .location-info { text-align: center; margin-bottom: 40px; }
 .location-info h3 {
@@ -500,12 +495,19 @@ section {
     .section-header h2 { font-size: 36px; }
     
     /* CORRECCIONES DEL SOBRE MÓVIL */
-    .letter-container { gap: 60px; }
-    .wrapper { height: 180px; width: 260px; }
+    .letter-container { gap: 60px; width: 100%; }
+    .wrapper { 
+        height: 180px; 
+        width: 260px; /* Ancho fijo para móvil que coincide con bordes */
+        margin: 0 auto; /* Centrado explícito */
+    }
     .lid { border-right-width: 130px; border-left-width: 130px; }
     .envelope { border-right-width: 130px; border-left-width: 130px; }
     .letter { padding: 15px; }
     .letter h2 { font-size: 20px; }
+    
+    /* El texto sale más arriba para que se vea completo */
+    .wrapper.open .letter { transform: translateY(-100px); }
 
     /* Ajustes generales móvil */
     .countdown-container { gap: 20px; }
@@ -516,7 +518,6 @@ section {
     .color-circle { width: 140px; height: 140px; }
     .color-emoji { font-size: 60px; }
     .wrapper { height: 160px; width: 240px; }
-    .letter h2 { font-size: 20px; }
     .whatsapp-btn-large { padding: 15px 25px; font-size: 16px; }
 }
 @media (max-width: 480px) {
