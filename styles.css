@@ -602,3 +602,21 @@ section {
     .color-emoji { font-size: 50px; }
     .whatsapp-btn-large { padding: 15px 25px; font-size: 16px; }
 }
+
+/* Agrega esto al final de tu styles.css */
+
+.photo-img {
+    width: 300px;         /* Tamaño base */
+    max-width: 80vw;      /* Ajuste para móviles (igual que tenías antes) */
+    aspect-ratio: 1/1;    /* Fuerza a que la foto sea cuadrada */
+    object-fit: cover;    /* Recorta la imagen para llenar el cuadro sin estirarse */
+    display: block;       /* Elimina espacios extraños abajo de la imagen */
+}
+
+/* En móviles, aseguramos que la imagen no exceda el ancho permitido */
+@media (max-width: 768px) {
+    .photo-img {
+        width: 100%;
+        max-width: 260px;
+    }
+}
