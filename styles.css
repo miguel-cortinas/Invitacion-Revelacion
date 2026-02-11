@@ -595,7 +595,7 @@ section {
 @media (max-width: 480px) {
     .hero-title { font-size: 60px; }
     .section-header h2 { font-size: 28px; }
-    .invitation-text, .dresscode-intro, .rsvp-intro { font-size: 20px; }
+    .invitation-text, .dresscode-intro, .rsvp-intro { font-size: 26px; }
     .countdown-item { min-width: 100px; padding: 15px 20px; }
     .countdown-item span { font-size: 32px; }
     .color-circle { width: 120px; height: 120px; }
