@@ -72,7 +72,7 @@ section {
 }
 
 /* =================================== */
-/* CARTA (CORREGIDO) */
+/* CARTA */
 /* =================================== */
 
 .letter-opening {
@@ -96,7 +96,7 @@ section {
 
 .letter-opening.opening {
     animation: fadeOut 2s ease forwards;
-    pointer-events: none; /* Evita clicks fantasma */
+    pointer-events: none;
 }
 
 .letter-container {
@@ -114,7 +114,7 @@ section {
 .wrapper {
     height: 200px;
     width: 300px;
-    background: #f4f4f4; /* Fondo neutro gris muy claro */
+    background: #f4f4f4;
     position: relative;
     display: flex;
     justify-content: center;
@@ -135,19 +135,16 @@ section {
     transition: transform 0.6s ease;
 }
 
-/* Solapas NEUTRAS (Corrección de color) */
+/* Solapas NEUTRAS */
 .lid.one {
-    /* Tapa exterior: Gris/Blanco (Antes era Rosa) */
     border-top: 100px solid #e0e0e0; 
     transform: rotateX(0deg);
     z-index: 10; 
-    /* IMPORTANTE: Transición del z-index con delay para corregir la apertura */
     transition: transform 0.6s ease, z-index 0.2s linear; 
-    transition-delay: 0s, 0.3s; /* Delay en z-index para que no se oculte antes de tiempo */
+    transition-delay: 0s, 0.3s;
 }
 
 .lid.two {
-    /* Sombra interior o segunda capa: Un poco más oscura para profundidad */
     border-top: 100px solid #d0d0d0; 
     transform: rotateX(0deg);
     z-index: 9;
@@ -159,7 +156,6 @@ section {
     position: absolute;
     height: 100%; width: 100%; top: 0; left: 0;
     border-top: 100px solid transparent;
-    /* Cuerpo del sobre: Gris claro neutro */
     border-right: 150px solid #ececec;
     border-bottom: 100px solid #ececec;
     border-left: 150px solid #ececec;
@@ -169,7 +165,7 @@ section {
 .letter {
     position: absolute; top: 0; width: 85%; height: 85%;
     background-color: white; border-radius: 10px;
-    z-index: 5; /* Escondido dentro */
+    z-index: 5;
     padding: 20px;
     display: flex; flex-direction: column;
     justify-content: center; align-items: center;
@@ -186,10 +182,10 @@ section {
 }
 .letter p { font-size: 14px; color: #666; margin-top: 5px; }
 
-/* ESTADO ABIERTO (CORREGIDO) */
+/* ESTADO ABIERTO */
 .wrapper.open .lid.one { 
     transform: rotateX(180deg); 
-    z-index: 1; /* Pasa al fondo solo DESPUÉS de rotar (gracias al delay de arriba) */
+    z-index: 1;
 }
 
 .wrapper.open .lid.two { 
@@ -199,8 +195,8 @@ section {
 
 .wrapper.open .letter { 
     transform: translateY(-80px); 
-    transition-delay: 0.4s; /* Sale DESPUÉS de que abre la tapa */
-    z-index: 15; /* Sube por encima de todo */
+    transition-delay: 0.4s;
+    z-index: 15;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
@@ -418,7 +414,7 @@ section {
 .event-detail-sub { font-size: 14px; color: var(--secondary-color); }
 
 /* =================================== */
-/* NUEVA SECCIÓN: GALERÍA */
+/* GALERÍA / CARRUSEL (MODIFICADO PARA MÓVIL) */
 /* =================================== */
 .carousel-container {
     max-width: 800px; margin: 0 auto; overflow: hidden; position: relative;
@@ -436,15 +432,24 @@ section {
     background: white; padding: 15px 15px 50px 15px; /* Estilo Polaroid */
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     transform: rotate(-2deg); transition: transform 0.3s ease;
+    /* Ajuste responsivo base */
+    max-width: 100%;
 }
 .photo-frame:hover { transform: rotate(0deg) scale(1.02); }
 .photo-frame.pink-frame { border-top: 5px solid var(--secondary-color); transform: rotate(2deg); }
 .photo-frame.blue-frame { border-top: 5px solid var(--primary-color); }
+
 .photo-placeholder {
-    width: 300px; height: 300px; background: #eee;
+    /* CORRECCIÓN: Usar unidades relativas para el ancho */
+    width: 300px; max-width: 80vw; /* 80% del ancho de la pantalla máximo */
+    height: 300px; 
+    /* Si se reduce el ancho, ajustamos la altura con aspect-ratio para que siga cuadrado */
+    aspect-ratio: 1/1; 
+    background: #eee;
     display: flex; align-items: center; justify-content: center;
     color: #999; font-weight: bold;
 }
+
 .carousel-indicators {
     display: flex; justify-content: center; margin-top: 20px; gap: 10px;
 }
@@ -575,6 +580,17 @@ section {
     .color-circle { width: 140px; height: 140px; }
     .color-emoji { font-size: 60px; }
     .whatsapp-btn-large { padding: 15px 25px; font-size: 16px; }
+
+    /* CORRECCIÓN GALERÍA MÓVIL */
+    .photo-placeholder {
+        /* En pantallas medianas y chicas, usar width fluido */
+        width: 100%; 
+        max-width: 260px; /* Evita que se haga gigante */
+        height: auto; 
+    }
+    .photo-frame {
+        padding: 10px 10px 40px 10px; /* Reducir padding Polaroid */
+    }
 }
 @media (max-width: 480px) {
     .hero-title { font-size: 40px; }
