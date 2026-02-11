@@ -14,6 +14,7 @@ function initializeApp() {
     setupScrollAnimations();
     setupCountdown();
     setupGallery(); // Nueva función de galería
+    setupAudio();
 }
 
 // =================================== 
@@ -30,6 +31,8 @@ function setupLetterOpening() {
     if (!openBtn || !envelopeWrapper) return;
 
     openBtn.addEventListener('click', function() {
+        // INTENTAR REPRODUCIR MÚSICA AL ABRIR
+        toggleMusic(true);
         // Abrir el sobre
         envelopeWrapper.classList.add('open');
         
@@ -275,3 +278,68 @@ function updateCountdown() {
 document.body.style.overflow = 'hidden';
 
 console.log('🎉 Invitación actualizada: Balance de color y Galería añadidos');
+
+// =================================== 
+// MÚSICA DE FONDO
+// ===================================
+
+let musicPlaying = false;
+
+function setupAudio() {
+    const musicControl = document.getElementById('music-control');
+    
+    if (musicControl) {
+        musicControl.addEventListener('click', () => {
+            toggleMusic();
+        });
+    }
+}
+
+function toggleMusic(forcePlay = null) {
+    const audio = document.getElementById('bg-music');
+    const icon = document.getElementById('music-icon');
+    const control = document.getElementById('music-control');
+
+    if (!audio) return;
+
+    // Si pasamos true forzamos play, si es null actuamos como interruptor
+    if (forcePlay === true) {
+        audio.volume = 0.5; // Volumen al 50%
+        const playPromise = audio.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+                musicPlaying = true;
+                updateMusicUI(true);
+            })
+            .catch(error => {
+                console.log("Auto-play prevenido por el navegador, esperando interacción manual.");
+                musicPlaying = false;
+                updateMusicUI(false);
+            });
+        }
+    } else {
+        // Interruptor manual
+        if (musicPlaying) {
+            audio.pause();
+            musicPlaying = false;
+        } else {
+            audio.play();
+            musicPlaying = true;
+        }
+        updateMusicUI(musicPlaying);
+    }
+}
+
+function updateMusicUI(isPlaying) {
+    const icon = document.getElementById('music-icon');
+    const control = document.getElementById('music-control');
+    
+    if (isPlaying) {
+        icon.textContent = '🎵'; // Icono de nota musical
+        control.classList.add('playing');
+    } else {
+        icon.textContent = '🔇'; // Icono de silencio
+        control.classList.remove('playing');
+    }
+}

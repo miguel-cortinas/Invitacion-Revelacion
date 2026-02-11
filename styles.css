@@ -620,3 +620,60 @@ section {
         max-width: 260px;
     }
 }
+
+/* =================================== */
+/* BURBUJA DE MÚSICA */
+/* =================================== */
+.music-control {
+    position: fixed;
+    bottom: 20px;
+    left: 20px; /* Esquina inferior izquierda */
+    width: 55px;
+    height: 55px;
+    background: var(--gradient); /* Usa el gradiente Azul/Rosa */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    z-index: 2500; /* Por encima de todo, incluso la carta */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+}
+
+.music-control:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.music-control span {
+    font-size: 24px;
+    color: white;
+    /* Ajuste visual para centrar el emoji */
+    margin-top: 2px; 
+}
+
+/* Animación cuando la música suena */
+.music-control.playing {
+    animation: pulse-music 2s infinite;
+}
+
+@keyframes pulse-music {
+    0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 105, 180, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
+}
+
+/* Ajuste para móvil para que no estorbe */
+@media (max-width: 768px) {
+    .music-control {
+        width: 45px;
+        height: 45px;
+        bottom: 15px;
+        left: 15px;
+    }
+    .music-control span {
+        font-size: 20px;
+    }
+}
