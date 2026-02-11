@@ -555,9 +555,9 @@ section {
     }
     .nav-menu.active { left: 0; }
     .nav-menu li { margin: 10px 0; }
-    .hero-title { font-size: 50px; }
-    .hero-subtitle, .hero-date { font-size: 18px; }
-    .hero-question { font-size: 24px; }
+    .hero-title { font-size: 60px; }
+    .hero-subtitle, .hero-date { font-size: 22px; }
+    .hero-question { font-size: 28px; }
     .section-header h2 { font-size: 36px; }
     
     /* CORRECCIONES DEL SOBRE MÓVIL */
@@ -593,7 +593,7 @@ section {
     }
 }
 @media (max-width: 480px) {
-    .hero-title { font-size: 40px; }
+    .hero-title { font-size: 60px; }
     .section-header h2 { font-size: 28px; }
     .invitation-text, .dresscode-intro, .rsvp-intro { font-size: 16px; }
     .countdown-item { min-width: 100px; padding: 15px 20px; }
